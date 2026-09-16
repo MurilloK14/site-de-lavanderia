@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavanderia - Serviço Profissional</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#185fe8', // Cor principal azul Washy
+                        secondary: '#f3f4f6', 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+        }
+        .animate-float {
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white pb-20 md:pb-0">
+
+    <!-- Header & Hero Container with Background Image -->
+    <div id="hero-wrapper" class="relative overflow-hidden">
+        <!-- Background Image with Clean Lighting -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <img src="imagens e vídeos/fundo.png" alt="Fundo Lavanderia" class="w-full h-full object-cover object-bottom scale-100 brightness-[0.92] contrast-[1.05]">
+            <!-- Overlay escurecido suave e mais aberto para evidenciar o branco -->
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/40 to-slate-950/20"></div>
+            <!-- Transição suave e ampla na base para o branco da próxima seção -->
+            <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/50 to-transparent"></div>
+        </div>
+
+        <!-- Canvas de Bolhas Interativas -->
+        <canvas id="hero-bubbles-canvas" class="absolute inset-0 z-[2] w-full h-full pointer-events-none"></canvas>
+
+        <!-- Topbar -->
+        <div class="bg-transparent text-gray-300 text-xs py-2.5 hidden md:block border-b border-white/10 relative z-20">
+            <div class="container mx-auto px-4 flex justify-between items-center max-w-7xl">
+                <div class="flex space-x-6">
+                    <span class="flex items-center text-gray-300"><i class="fas fa-truck mr-2 text-blue-400"></i> Coleta e Entrega Grátis</span>
+                    <span class="flex items-center text-gray-300"><i class="fas fa-bolt mr-2 text-blue-400"></i> Entrega Expressa em 24h</span>
+                    <span class="flex items-center text-gray-300"><i class="fas fa-leaf mr-2 text-blue-400"></i> Limpeza Ecológica</span>
+                </div>
+                <div class="flex items-center font-semibold text-white">
+                    <i class="fas fa-headset mr-2 text-blue-400"></i> Suporte: +55 11 98765-4321
+                </div>
+            </div>
+        </div>
+
+        <!-- Header / Navbar -->
+        <header class="bg-transparent border-b border-white/10 relative z-30">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center max-w-7xl relative">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2">
+                    <div class="bg-primary text-white p-2 rounded-lg flex items-center justify-center w-10 h-10 shadow-md shadow-blue-500/30">
+                        <i class="fas fa-tshirt text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white leading-none tracking-tight">Lavanderia</h1>
+                    </div>
+                </a>
+
+                <!-- Nav Links -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-blue-400 font-bold border-b-2 border-blue-400 pb-1">Início</a>
+                    <a href="#servicos" class="text-gray-200 hover:text-white font-medium transition">Serviços</a>
+                    <a href="#precos" class="text-gray-200 hover:text-white font-medium transition">Preços</a>
+                    <a href="#como-funciona" class="text-gray-200 hover:text-white font-medium transition">Como Funciona</a>
+                    <a href="#sobre" class="text-gray-200 hover:text-white font-medium transition">Sobre Nós</a>
+                    <a href="#contato" class="text-gray-200 hover:text-white font-medium transition">Contato</a>
+                </nav>
+
+                <!-- CTA Desktop -->
+                <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20coleta" target="_blank" class="hidden md:inline-block bg-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition shadow-lg shadow-blue-500/30">
+                    Agendar Coleta
+                </a>
+                
+                <!-- Mobile Actions: Quick WhatsApp & Menu Button -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es" target="_blank" class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md active:scale-95 transition" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                    <button id="mobile-menu-btn" aria-label="Menu Principal" class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 text-white flex items-center justify-center focus:outline-none active:scale-95 transition">
+                        <i id="menu-icon" class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Panel -->
+                <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-xl border-t border-gray-100 shadow-2xl rounded-b-3xl z-50 transition-all duration-300">
+                    <nav class="flex flex-col p-4 sm:p-5 space-y-2 text-gray-800">
+                        <a href="#" class="flex items-center gap-3 text-primary font-bold bg-blue-50/80 p-3 rounded-xl">
+                            <i class="fas fa-home w-5 text-center"></i> Início
+                        </a>
+                        <a href="#servicos" class="flex items-center gap-3 text-gray-700 hover:text-primary font-semibold p-3 rounded-xl hover:bg-gray-50 transition">
+                            <i class="fas fa-tshirt w-5 text-center text-primary"></i> Serviços
+                        </a>
+                        <a href="#precos" class="flex items-center gap-3 text-gray-700 hover:text-primary font-semibold p-3 rounded-xl hover:bg-gray-50 transition">
+                            <i class="fas fa-tags w-5 text-center text-primary"></i> Tabela de Preços
+                        </a>
+                        <a href="#como-funciona" class="flex items-center gap-3 text-gray-700 hover:text-primary font-semibold p-3 rounded-xl hover:bg-gray-50 transition">
+                            <i class="fas fa-tasks w-5 text-center text-primary"></i> Como Funciona
+                        </a>
+                        <a href="#sobre" class="flex items-center gap-3 text-gray-700 hover:text-primary font-semibold p-3 rounded-xl hover:bg-gray-50 transition">
+                            <i class="fas fa-info-circle w-5 text-center text-primary"></i> Sobre Nós
+                        </a>
+                        <a href="#contato" class="flex items-center gap-3 text-gray-700 hover:text-primary font-semibold p-3 rounded-xl hover:bg-gray-50 transition">
+                            <i class="fas fa-envelope w-5 text-center text-primary"></i> Contato
+                        </a>
+
+                        <div class="pt-3 border-t border-gray-100 flex flex-col gap-2">
+                            <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20quero%20agendar%20uma%20coleta" target="_blank" class="bg-primary hover:bg-blue-600 text-white text-center py-3.5 rounded-xl font-bold shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2">
+                                <i class="fas fa-calendar-check"></i> Agendar Coleta Grátis
+                            </a>
+                            <a href="tel:+5511987654321" class="bg-gray-100 hover:bg-gray-200 text-gray-800 text-center py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2">
+                                <i class="fas fa-phone-alt text-primary"></i> Ligar: +55 11 98765-4321
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative pt-8 pb-16 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-32 z-10">
+            <div class="container mx-auto px-4 max-w-7xl relative z-10">
+                <div class="flex flex-col lg:flex-row items-center">
+                    <!-- Text Content -->
+                    <div class="lg:w-1/2 pr-0 lg:pr-12 mb-12 lg:mb-0 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white text-primary text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-5 sm:mb-6 shadow-lg border border-white">
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            Lavanderia &amp; Lavagem Especializada
+                        </div>
+                        <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] font-extrabold text-white leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 drop-shadow-md">
+                            Roupas Limpas,<br> <span class="text-blue-300 drop-shadow">Vida Nova!</span>
+                        </h2>
+                        <p class="text-sm sm:text-lg text-gray-100 mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 font-normal leading-relaxed drop-shadow">
+                            Serviço profissional de lavanderia e lavagem a seco com cuidado, higiene e entrega no prazo.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-2.5 sm:gap-4 mb-8 sm:mb-10 text-left">
+                            <div class="flex items-center text-xs sm:text-sm font-bold text-gray-800 bg-white/95 backdrop-blur-sm px-3 py-3 sm:px-4 sm:py-3.5 rounded-xl sm:rounded-2xl border border-white shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all">
+                                <i class="fas fa-truck text-primary mr-2 sm:mr-3 text-base sm:text-lg flex-shrink-0"></i> Coleta &amp; Entrega
+                            </div>
+                            <div class="flex items-center text-xs sm:text-sm font-bold text-gray-800 bg-white/95 backdrop-blur-sm px-3 py-3 sm:px-4 sm:py-3.5 rounded-xl sm:rounded-2xl border border-white shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all">
+                                <i class="fas fa-tint text-primary mr-2 sm:mr-3 text-base sm:text-lg flex-shrink-0"></i> 100% Higiênica
+                            </div>
+                            <div class="flex items-center text-xs sm:text-sm font-bold text-gray-800 bg-white/95 backdrop-blur-sm px-3 py-3 sm:px-4 sm:py-3.5 rounded-xl sm:rounded-2xl border border-white shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all">
+                                <i class="fas fa-stopwatch text-primary mr-2 sm:mr-3 text-base sm:text-lg flex-shrink-0"></i> Expressa 24h
+                            </div>
+                            <div class="flex items-center text-xs sm:text-sm font-bold text-gray-800 bg-white/95 backdrop-blur-sm px-3 py-3 sm:px-4 sm:py-3.5 rounded-xl sm:rounded-2xl border border-white shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all">
+                                <i class="fas fa-tags text-primary mr-2 sm:mr-3 text-base sm:text-lg flex-shrink-0"></i> Preço Justo
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                            <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20coleta" target="_blank" class="bg-primary hover:bg-blue-600 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-center transition flex items-center justify-center shadow-xl shadow-blue-500/40 hover:shadow-blue-500/60 hover:-translate-y-0.5 duration-200 text-sm sm:text-base">
+                                Agendar Coleta Grátis <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            <a href="#como-funciona" class="bg-white hover:bg-gray-50 text-gray-900 border border-white shadow-xl px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-center transition flex items-center justify-center hover:-translate-y-0.5 duration-200 group text-sm sm:text-base">
+                                <i class="far fa-play-circle mr-2 text-xl text-primary group-hover:scale-110 transition-transform"></i> Como Funciona
+                            </a>
+                        </div>
+                        
+                        <!-- Interactive Bubbles Hint -->
+                        <div class="mt-4 sm:mt-5 flex items-center justify-center lg:justify-start gap-2 text-blue-100/80 text-xs select-none">
+                            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm text-xs shadow-sm">🫧</span>
+                            <span>Mova o cursor ou clique nas bolhas para estourá-las!</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Image / Hero Animation -->
+                    <div class="lg:w-1/2 relative w-full flex items-center justify-center mt-8 sm:mt-10 lg:mt-0 mb-6 lg:mb-0">
+                        <!-- Constrained container for compact mobile view -->
+                        <div class="relative w-full max-w-[210px] sm:max-w-[280px] md:max-w-[380px] lg:max-w-[460px] flex items-center justify-center animate-float">
+                            <!-- Blue highlight shapes -->
+                            <div class="absolute inset-0 bg-blue-500 rounded-[2rem] sm:rounded-[3rem] md:rounded-[3.5rem] -rotate-6 shadow-2xl opacity-90 transition-transform duration-700 hover:rotate-0 scale-95 sm:scale-100"></div>
+                            <div class="absolute inset-0 bg-blue-300 rounded-[2rem] sm:rounded-[3rem] md:rounded-[3.5rem] rotate-3 opacity-50 scale-95 sm:scale-100"></div>
+                            
+                            <!-- Washing Machine Image -->
+                            <img src="imagens e vídeos/lavadeirapng.png" alt="Lavadora Profissional" class="relative z-10 w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] sm:drop-shadow-[0_25px_45px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform duration-500">
+                            
+                            <!-- Floating Rating Badge -->
+                            <div class="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-2 md:-left-6 bg-white py-2 px-3 sm:p-3.5 md:p-4 rounded-xl sm:rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3 border border-gray-100 z-20 whitespace-nowrap">
+                                <div class="text-yellow-400 text-xs sm:text-lg md:text-xl flex">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-xs sm:text-base md:text-lg text-gray-900 leading-none">4.9/5</div>
+                                    <div class="text-[8px] sm:text-[9px] md:text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-0.5">Avaliação Média</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-center mb-12">
+                <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Nossos Serviços</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-4">Lavanderia & Lavagem a Seco</h2>
+                <div class="w-24 h-1 bg-primary mx-auto rounded mt-6"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
+                    <div class="h-28 sm:h-40 overflow-hidden relative">
+                        <img src="imagens e vídeos/servico-lavar-dobrar.jpg" alt="Lavar e Dobrar" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-6 sm:p-5 sm:pt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-900 group-hover:text-primary transition">Lavar &amp; Dobrar</h3>
+                            <p class="text-gray-500 text-xs sm:text-sm leading-snug sm:leading-relaxed">Lavagem regular e dobragem perfeita para o dia a dia.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
+                    <div class="h-28 sm:h-40 overflow-hidden relative">
+                        <img src="imagens e vídeos/servico-lavagem-seco.jpg" alt="Lavagem a Seco" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-6 sm:p-5 sm:pt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-900 group-hover:text-primary transition">Lavagem a Seco</h3>
+                            <p class="text-gray-500 text-xs sm:text-sm leading-snug sm:leading-relaxed">Limpeza profissional a seco para roupas delicadas.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
+                    <div class="h-28 sm:h-40 overflow-hidden relative">
+                        <img src="imagens e vídeos/servico-passadoria.jpg" alt="Passadoria" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-6 sm:p-5 sm:pt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-900 group-hover:text-primary transition">Passadoria</h3>
+                            <p class="text-gray-500 text-xs sm:text-sm leading-snug sm:leading-relaxed">Passadoria perfeita para um visual impecável e afiado.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
+                    <div class="h-28 sm:h-40 overflow-hidden relative">
+                        <img src="imagens e vídeos/servico-calcados.jpg" alt="Limpeza de Calçados" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-6 sm:p-5 sm:pt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-900 group-hover:text-primary transition">Calçados</h3>
+                            <p class="text-gray-500 text-xs sm:text-sm leading-snug sm:leading-relaxed">Limpeza profunda para todos os tipos de tênis.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
+                    <div class="h-28 sm:h-40 overflow-hidden relative">
+                        <img src="imagens e vídeos/servico-cama-banho.jpg" alt="Cama, Mesa e Banho" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-6 sm:p-5 sm:pt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-900 group-hover:text-primary transition">Cama &amp; Banho</h3>
+                            <p class="text-gray-500 text-xs sm:text-sm leading-snug sm:leading-relaxed">Limpeza de lençóis, edredons, toalhas e cortinas.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
+                    <div class="h-28 sm:h-40 overflow-hidden relative">
+                        <img src="imagens e vídeos/servico-cuidados-especiais.jpg" alt="Cuidados Especiais" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-6 sm:p-5 sm:pt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-900 group-hover:text-primary transition">Cuidados Especiais</h3>
+                            <p class="text-gray-500 text-xs sm:text-sm leading-snug sm:leading-relaxed">Cuidado premium para roupas de grife e inverno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="precos" class="py-16 sm:py-20 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
+                <!-- Left Title Content -->
+                <div class="lg:w-1/4 flex flex-col justify-start">
+                    <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full w-fit">Nossos Preços</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4 sm:mb-6 leading-tight">Tabela<br class="hidden sm:inline"> de Preços</h2>
+                    <p class="text-sm text-gray-500 mb-6 lg:mb-10">Transparência total e os melhores valores para o seu dia a dia.</p>
+                    <div class="w-16 h-1 bg-primary mb-8 rounded hidden lg:block"></div>
+                    
+                    <div class="relative hidden lg:block mt-auto pb-4">
+                        <img src="imagens e vídeos/precos-toalhas.jpg" alt="Toalhas Limpas" class="rounded-xl shadow-lg mix-blend-multiply opacity-90 h-64 object-cover w-full">
+                        <div class="absolute -right-4 -top-6 bg-blue-500 text-white w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-xl border-4 border-white transform rotate-12">
+                            <span class="text-[10px] uppercase tracking-wider leading-none mb-1">Melhores</span>
+                            <span class="text-lg leading-none">Preços</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Table & Mobile View -->
+                <div class="lg:w-3/4 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                    <!-- Desktop Table (hidden on mobile, visible on md+) -->
+                    <div class="hidden md:block overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
+                            <thead>
+                                <tr>
+                                    <th class="bg-primary/90 text-white py-4 px-6 font-semibold border-r border-blue-400/30 w-1/4">Serviço</th>
+                                    <th class="bg-primary text-white py-4 px-6 font-semibold text-center border-r border-blue-400/30 w-1/4">
+                                        Regular<br><span class="text-[10px] font-normal text-blue-200 block mt-1">(3 Dias)</span>
+                                    </th>
+                                    <th class="bg-[#0f4eb8] text-white py-4 px-6 font-semibold text-center border-r border-blue-400/30 w-1/4">
+                                        Express<br><span class="text-[10px] font-normal text-blue-200 block mt-1">(24 Horas)</span>
+                                    </th>
+                                    <th class="bg-primary text-white py-4 px-6 font-semibold text-center w-1/4">
+                                        Premium<br><span class="text-[10px] font-normal text-blue-200 block mt-1">(Mesmo Dia)</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-700 text-sm md:text-base">
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Camisa</td>
+                                    <td class="py-4 px-6 text-center">R$ 25</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 35</td>
+                                    <td class="py-4 px-6 text-center">R$ 50</td>
+                                </tr>
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Camiseta</td>
+                                    <td class="py-4 px-6 text-center">R$ 20</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 30</td>
+                                    <td class="py-4 px-6 text-center">R$ 45</td>
+                                </tr>
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Calça Jeans</td>
+                                    <td class="py-4 px-6 text-center">R$ 40</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 60</td>
+                                    <td class="py-4 px-6 text-center">R$ 80</td>
+                                </tr>
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Calça Social</td>
+                                    <td class="py-4 px-6 text-center">R$ 30</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 45</td>
+                                    <td class="py-4 px-6 text-center">R$ 60</td>
+                                </tr>
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Vestido</td>
+                                    <td class="py-4 px-6 text-center">R$ 60</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 90</td>
+                                    <td class="py-4 px-6 text-center">R$ 120</td>
+                                </tr>
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Terno / Blazer</td>
+                                    <td class="py-4 px-6 text-center">R$ 120</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 180</td>
+                                    <td class="py-4 px-6 text-center">R$ 250</td>
+                                </tr>
+                                <tr class="border-b border-gray-100 hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Lençol (Casal)</td>
+                                    <td class="py-4 px-6 text-center">R$ 80</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 120</td>
+                                    <td class="py-4 px-6 text-center">R$ 160</td>
+                                </tr>
+                                <tr class="hover:bg-blue-50/50 transition">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Edredom / Cobertor</td>
+                                    <td class="py-4 px-6 text-center">R$ 150</td>
+                                    <td class="py-4 px-6 text-center font-bold text-primary bg-blue-50/30">R$ 200</td>
+                                    <td class="py-4 px-6 text-center">R$ 250</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Interactive Price Cards (visible only on mobile) -->
+                    <div class="md:hidden p-4 sm:p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-gray-700 uppercase tracking-wider">Escolha a velocidade:</span>
+                            <span class="text-[11px] text-primary font-semibold"><i class="fas fa-hand-pointer mr-1"></i> Toque para alterar</span>
+                        </div>
+                        
+                        <!-- Mobile Tabs -->
+                        <div class="grid grid-cols-3 gap-1.5 p-1 bg-gray-100 rounded-xl mb-4 text-center">
+                            <button type="button" onclick="switchMobilePlan('regular')" id="tab-regular" class="plan-tab py-2.5 px-1 rounded-lg text-gray-600 transition text-xs font-bold">
+                                Regular
+                                <span class="block text-[10px] font-normal text-gray-500">3 Dias</span>
+                            </button>
+                            <button type="button" onclick="switchMobilePlan('express')" id="tab-express" class="plan-tab py-2.5 px-1 rounded-lg bg-primary text-white shadow-sm transition text-xs font-bold">
+                                Express ⚡
+                                <span class="block text-[10px] font-normal text-blue-100">24 Horas</span>
+                            </button>
+                            <button type="button" onclick="switchMobilePlan('premium')" id="tab-premium" class="plan-tab py-2.5 px-1 rounded-lg text-gray-600 transition text-xs font-bold">
+                                Premium 🔥
+                                <span class="block text-[10px] font-normal text-gray-500">Mesmo Dia</span>
+                            </button>
+                        </div>
+
+                        <!-- Price Item List -->
+                        <div class="divide-y divide-gray-100 text-sm">
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Camisa</span>
+                                    <span class="text-[11px] text-gray-500">Lavada e passada no cabide</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 25" data-express="R$ 35" data-premium="R$ 50">R$ 35</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Camiseta</span>
+                                    <span class="text-[11px] text-gray-500">Algodão ou sintético</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 20" data-express="R$ 30" data-premium="R$ 45">R$ 30</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Calça Jeans</span>
+                                    <span class="text-[11px] text-gray-500">Preservação de cor e maciez</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 40" data-express="R$ 60" data-premium="R$ 80">R$ 60</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Calça Social</span>
+                                    <span class="text-[11px] text-gray-500">Passadoria com vinco impecável</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 30" data-express="R$ 45" data-premium="R$ 60">R$ 45</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Vestido</span>
+                                    <span class="text-[11px] text-gray-500">Lavagem delicada e vaporizada</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 60" data-express="R$ 90" data-premium="R$ 120">R$ 90</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Terno / Blazer</span>
+                                    <span class="text-[11px] text-gray-500">Lavagem a seco especializada</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 120" data-express="R$ 180" data-premium="R$ 250">R$ 180</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Lençol (Casal)</span>
+                                    <span class="text-[11px] text-gray-500">Higiene profunda e perfume suave</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 80" data-express="R$ 120" data-premium="R$ 160">R$ 120</span>
+                            </div>
+                            <div class="py-3 flex items-center justify-between">
+                                <div class="pr-2">
+                                    <span class="font-bold text-gray-900 block">Edredom / Cobertor</span>
+                                    <span class="text-[11px] text-gray-500">Higienização térmica antiácaro</span>
+                                </div>
+                                <span class="price-val font-extrabold text-primary text-lg whitespace-nowrap" data-regular="R$ 150" data-express="R$ 200" data-premium="R$ 250">R$ 200</span>
+                            </div>
+                        </div>
+
+                        <!-- Mobile CTA Button -->
+                        <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20vi%20a%20tabela%20de%20pre%C3%A7os%20e%20gostaria%20de%20fazer%20um%20pedido" target="_blank" class="mt-4 w-full bg-primary hover:bg-blue-600 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 text-sm active:scale-95 transition">
+                            <i class="fab fa-whatsapp text-lg"></i> Pedir Orçamento no WhatsApp
+                        </a>
+                    </div>
+
+                    <div class="bg-gray-50/60 p-3 sm:p-4 text-xs text-gray-500 italic text-center border-t border-gray-100">
+                        * Os preços podem variar de acordo com o tecido, tamanho e condição da peça.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section id="como-funciona" class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-center mb-16">
+                <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Como Funciona</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-4">4 Passos Simples</h2>
+                <div class="w-24 h-1 bg-primary mx-auto rounded mt-6"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-start relative max-w-5xl mx-auto">
+                <!-- Desktop dashed line connecting steps -->
+                <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 border-t-2 border-dashed border-blue-200 -z-0"></div>
+                
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4 mb-10 md:mb-0 relative bg-white">
+                    <div class="w-24 h-24 bg-white border-2 border-primary rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-md relative z-10 group hover:bg-primary hover:text-white transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                        <i class="far fa-calendar-check"></i>
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm border-2 border-white">1</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Agende o Pedido</h3>
+                    <p class="text-gray-500 text-sm">Agende uma coleta pelo nosso site ou app.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4 mb-10 md:mb-0 relative bg-white">
+                    <div class="w-24 h-24 bg-white border-2 border-primary rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-md relative z-10 group hover:bg-primary hover:text-white transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                        <i class="fas fa-motorcycle"></i>
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm border-2 border-white">2</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Nós Coletamos</h3>
+                    <p class="text-gray-500 text-sm">Buscamos as roupas na sua casa grátis.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4 mb-10 md:mb-0 relative bg-white">
+                    <div class="w-24 h-24 bg-white border-2 border-primary rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-md relative z-10 group hover:bg-primary hover:text-white transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                        <i class="fas fa-soap"></i>
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm border-2 border-white">3</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Limpeza Expert</h3>
+                    <p class="text-gray-500 text-sm">Limpamos com máximo cuidado e higiene.</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4 relative bg-white">
+                    <div class="w-24 h-24 bg-white border-2 border-primary rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-md relative z-10 group hover:bg-primary hover:text-white transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                        <i class="fas fa-box-open"></i>
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm border-2 border-white">4</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Entrega Rápida</h3>
+                    <p class="text-gray-500 text-sm">Entregamos limpas e passadas no prazo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discount Banner -->
+    <section class="py-8 sm:py-10">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="bg-primary rounded-2xl overflow-hidden relative shadow-2xl flex flex-col md:flex-row items-center border border-blue-600">
+                <!-- Text -->
+                <div class="p-6 sm:p-8 md:p-12 md:w-2/3 z-10 text-center md:text-left">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-2 sm:mb-4">Ganhe <span class="text-yellow-300">20% OFF</span> no Primeiro Pedido!</h2>
+                    <p class="text-blue-100 text-xs sm:text-sm mb-5">Aproveite nossa qualidade com um cupom especial de boas-vindas.</p>
+                    <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center md:justify-start">
+                        <span class="text-white/90 text-xs sm:text-sm font-medium">Use o Código:</span>
+                        <div class="bg-white/20 border-2 border-white border-dashed text-white px-5 py-2 rounded-xl font-black tracking-widest uppercase text-sm sm:text-base">
+                            BEMVINDO20
+                        </div>
+                    </div>
+                </div>
+                <!-- Image -->
+                <div class="md:w-1/3 w-full h-40 sm:h-48 md:h-full absolute md:relative bottom-0 right-0 opacity-20 md:opacity-100 pointer-events-none">
+                    <img src="imagens e vídeos/banner-desconto.jpg" alt="Cesto de Toalhas" class="w-full h-full object-cover object-left-bottom">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent hidden md:block"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-10 sm:py-12 border-b border-gray-200 bg-white">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-6">
+                <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
+                    <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">100% Higiênico</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Elimina germes</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
+                    <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="far fa-clock"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">No Prazo</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Na hora marcada</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
+                    <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="fas fa-lock"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Seguro &amp; Confiável</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Em boas mãos</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
+                    <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="fas fa-leaf"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Ecológico</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500">Sustentável</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl col-span-2 sm:col-span-1">
+                    <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="far fa-thumbs-up"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Satisfação</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500">100% garantida</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-center mb-16">
+                <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-100 px-3 py-1 rounded-full">O que nossos clientes dizem</span>
+                <h2 class="text-3xl font-extrabold text-gray-900 mt-4">Avaliações</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col">
+                    <div class="text-yellow-400 text-sm mb-4 flex gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 font-medium leading-relaxed">"Serviço excelente! As roupas sempre voltam perfeitamente limpas e dobradas. Poupa muito meu tempo."</p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Roberto Alves" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Roberto Alves</h4>
+                            <span class="text-xs text-gray-500">São Paulo, SP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col">
+                    <div class="text-yellow-400 text-sm mb-4 flex gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 font-medium leading-relaxed">"Muito profissionais e pontuais. Finalmente encontrei uma lavanderia de confiança para meus vestidos e casacos."</p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mariana Costa" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Mariana Costa</h4>
+                            <span class="text-xs text-gray-500">Rio de Janeiro, RJ</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col">
+                    <div class="text-yellow-400 text-sm mb-4 flex gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 font-medium leading-relaxed">"A melhor da cidade. Conseguiram tirar uma mancha que eu achava impossível. Atendimento nota 10!"</p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
+                        <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Carlos Eduardo" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Carlos Eduardo</h4>
+                            <span class="text-xs text-gray-500">Curitiba, PR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="sobre" class="py-16 sm:py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+                <!-- Image with modern badge -->
+                <div class="lg:w-1/2 relative w-full">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="imagens e vídeos/sobre-nos.jpg" alt="Instalações da Lavanderia" class="w-full h-[280px] sm:h-[380px] md:h-[440px] object-cover hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                    </div>
+                    <!-- Experience badge -->
+                    <div class="absolute -bottom-5 right-2 sm:right-6 bg-primary text-white p-4 sm:p-5 rounded-2xl shadow-xl border-4 border-white flex items-center gap-3">
+                        <div class="text-3xl sm:text-4xl font-extrabold leading-none">+10</div>
+                        <div>
+                            <div class="text-xs font-bold leading-tight uppercase tracking-wider">Anos de</div>
+                            <div class="text-xs font-bold leading-tight text-blue-200">Excelência</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="lg:w-1/2 mt-6 lg:mt-0">
+                    <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Sobre Nós</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3 mb-5 leading-tight">
+                        Cuidado Profissional com Cada Fibra da Sua Roupa
+                    </h2>
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-6">
+                        Combinamos maquinário industrial de última geração com produtos biodegradáveis de alta performance que preservam as cores, a maciez e aumentam a vida útil das suas peças.
+                    </p>
+
+                    <!-- Features checklist -->
+                    <div class="space-y-3.5 mb-8">
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-sm">Higienização Profunda &amp; Desinfecção</h4>
+                                <p class="text-xs text-gray-500">Elimina 99.9% de germes, bactérias e odores desagradáveis.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-sm">Passadoria a Vapor e Cabide</h4>
+                                <p class="text-xs text-gray-500">Suas roupas voltam prontas para vestir e guardar no armário.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-sm">Coleta e Entrega Pontuais</h4>
+                                <p class="text-xs text-gray-500">Retiramos e entregamos na sua porta com horário agendado.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Counter stats -->
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3 p-3.5 sm:p-4 bg-gray-50 rounded-2xl border border-gray-100 text-center mb-6">
+                        <div>
+                            <div class="text-lg sm:text-2xl font-extrabold text-primary">+50.000</div>
+                            <div class="text-[10px] sm:text-xs text-gray-500 font-semibold mt-0.5">Peças Lavadas</div>
+                        </div>
+                        <div class="border-x border-gray-200">
+                            <div class="text-lg sm:text-2xl font-extrabold text-primary">99.8%</div>
+                            <div class="text-[10px] sm:text-xs text-gray-500 font-semibold mt-0.5">Satisfação</div>
+                        </div>
+                        <div>
+                            <div class="text-lg sm:text-2xl font-extrabold text-primary">24h</div>
+                            <div class="text-[10px] sm:text-xs text-gray-500 font-semibold mt-0.5">Entrega Express</div>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20lavanderia" target="_blank" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 text-white px-7 py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 active:scale-95">
+                        <i class="fab fa-whatsapp text-lg"></i> Falar com um Especialista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contato -->
+    <footer id="contato" class="bg-[#0b1b3d] text-white pt-16 pb-8 border-t-4 border-primary">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1 -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="bg-primary text-white p-2 rounded-lg">
+                            <i class="fas fa-tshirt text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-white leading-none">Lavanderia</h2>
+                        </div>
+                    </a>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed pr-4">
+                        Serviço profissional de lavanderia e lavagem a seco com foco em qualidade, agilidade e total cuidado com as suas peças.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition"><i class="fab fa-whatsapp text-sm"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Col 2 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-white">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Início</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Serviços</a></li>
+                        <li><a href="#precos" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Preços</a></li>
+                        <li><a href="#como-funciona" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Como Funciona</a></li>
+                        <li><a href="#sobre" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Sobre Nós</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Col 3 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-white">Nossos Serviços</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Lavar & Dobrar</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Lavagem a Seco</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Passadoria</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Limpeza de Calçados</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition text-sm flex items-center"> Cama, Mesa e Banho</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Col 4 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-white">Contato</h3>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt text-primary mt-1 mr-3"></i>
+                            <div>
+                                <div class="text-sm text-gray-300 font-medium">+55 11 98765-4321</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary mt-1 mr-3"></i>
+                            <div>
+                                <div class="text-sm text-gray-300">suporte@lavanderia.com.br</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary mt-1 mr-3"></i>
+                            <div>
+                                <div class="text-sm text-gray-300 leading-tight">Rua das Flores, 123<br>São Paulo, SP</div>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <h4 class="text-sm font-bold mb-3 text-gray-300">Baixe nosso App</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 rounded-md px-3 py-2 flex items-center gap-2 border border-gray-700 transition">
+                            <i class="fab fa-google-play text-xl"></i>
+                            <div class="text-left">
+                                <div class="text-[8px] uppercase tracking-wider text-gray-400 leading-none">Disponível no</div>
+                                <div class="text-xs font-bold leading-tight">Google Play</div>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 rounded-md px-3 py-2 flex items-center gap-2 border border-gray-700 transition">
+                            <i class="fab fa-apple text-xl"></i>
+                            <div class="text-left">
+                                <div class="text-[8px] uppercase tracking-wider text-gray-400 leading-none">Baixar na</div>
+                                <div class="text-xs font-bold leading-tight">App Store</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                <p>&copy; 2024 Lavanderia. Todos os direitos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-300 transition">Política de Privacidade</a>
+                    <a href="#" class="hover:text-gray-300 transition">Termos & Condições</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Desktop Floating WhatsApp Button (visible only on desktop md+) -->
+    <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20a%20lavanderia" target="_blank" class="hidden md:flex fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#20ba5a] text-white w-14 h-14 rounded-full items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp text-3xl"></i>
+        <span class="absolute right-16 bg-gray-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">
+            Fale Conosco no WhatsApp
+        </span>
+    </a>
+
+    <!-- Mobile Sticky Bottom Bar (App-like navigation, visible only on mobile) -->
+    <aside aria-label="Ações Rápidas Mobile" class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-t border-gray-200 py-2 px-3 md:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.08)]">
+        <div class="flex items-center justify-around gap-2 max-w-lg mx-auto">
+            <a href="tel:+5511987654321" class="flex flex-col items-center justify-center py-1 px-2 text-gray-600 hover:text-primary transition active:scale-95">
+                <i class="fas fa-phone-alt text-base text-gray-700"></i>
+                <span class="text-[10px] font-semibold mt-0.5 text-gray-600">Ligar</span>
+            </a>
+            <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20coleta" target="_blank" class="flex flex-col items-center justify-center py-1 px-2 text-emerald-600 hover:text-emerald-700 transition active:scale-95">
+                <i class="fab fa-whatsapp text-xl text-emerald-500"></i>
+                <span class="text-[10px] font-semibold mt-0.5 text-emerald-700">WhatsApp</span>
+            </a>
+            <a href="#precos" class="flex flex-col items-center justify-center py-1 px-2 text-gray-600 hover:text-primary transition active:scale-95">
+                <i class="fas fa-tags text-base text-gray-700"></i>
+                <span class="text-[10px] font-semibold mt-0.5 text-gray-600">Preços</span>
+            </a>
+            <a href="https://wa.me/5511987654321?text=Ol%C3%A1%2C%20quero%20agendar%20uma%20coleta" target="_blank" class="flex-1 max-w-[150px] bg-primary hover:bg-blue-600 active:scale-95 text-white py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/30 text-center transition">
+                <i class="fas fa-calendar-check"></i>
+                <span>Agendar</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Mobile Menu & Interactive Scripts -->
+    <script>
+        // Mobile Menu Toggle with Icon Swap
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                const isHidden = menu.classList.contains('hidden');
+                if (isHidden) {
+                    menu.classList.remove('hidden');
+                    if (menuIcon) {
+                        menuIcon.classList.remove('fa-bars');
+                        menuIcon.classList.add('fa-times');
+                    }
+                } else {
+                    menu.classList.add('hidden');
+                    if (menuIcon) {
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+            
+            // Close menu when clicking on any anchor inside
+            const links = menu.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                    if (menuIcon) {
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menu.contains(e.target) && !btn.contains(e.target) && !menu.classList.contains('hidden')) {
+                    menu.classList.add('hidden');
+                    if (menuIcon) {
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
+        // Mobile Pricing Tab Switcher
+        function switchMobilePlan(plan) {
+            const tabs = document.querySelectorAll('.plan-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+                tab.classList.add('text-gray-600');
+                const sub = tab.querySelector('span');
+                if (sub) {
+                    sub.classList.remove('text-blue-100');
+                    sub.classList.add('text-gray-500');
+                }
+            });
+
+            const activeTab = document.getElementById('tab-' + plan);
+            if (activeTab) {
+                activeTab.classList.remove('text-gray-600');
+                activeTab.classList.add('bg-primary', 'text-white', 'shadow-sm');
+                const sub = activeTab.querySelector('span');
+                if (sub) {
+                    sub.classList.remove('text-gray-500');
+                    sub.classList.add('text-blue-100');
+                }
+            }
+
+            const priceElements = document.querySelectorAll('.price-val');
+            priceElements.forEach(el => {
+                const val = el.getAttribute('data-' + plan);
+                if (val) {
+                    el.textContent = val;
+                }
+            });
+        }
+
+        // ====================================================
+        // SISTEMA DE BOLHAS DE SABÃO INTERATIVAS NA HERO
+        // ====================================================
+        (function initHeroBubbles() {
+            const canvas = document.getElementById('hero-bubbles-canvas');
+            const heroWrapper = document.getElementById('hero-wrapper');
+            if (!canvas || !heroWrapper) return;
+
+            const ctx = canvas.getContext('2d');
+            let width = 0;
+            let height = 0;
+            let dpr = 1;
+            let bubbles = [];
+            let particles = [];
+            let shockwaves = [];
+            let animationFrameId = null;
+            let isVisible = true;
+
+            // Estado do cursor/toque
+            const mouse = {
+                x: -9999,
+                y: -9999,
+                radius: 125,
+                active: false
+            };
+
+            // Sintetizador Web Audio para som orgânico de estouro de bolha
+            let audioCtx = null;
+            function playBubblePopSound(freq = 550) {
+                try {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioContextClass) return;
+                    if (!audioCtx) {
+                        audioCtx = new AudioContextClass();
+                    }
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    const randomPitch = freq + (Math.random() * 260 - 120);
+                    osc.frequency.setValueAtTime(randomPitch, now);
+                    osc.frequency.exponentialRampToValueAtTime(140, now + 0.08);
+
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } catch (e) {
+                    // Sem áudio em navegadores com restrições estritas
+                }
+            }
+
+            // Redimensionamento com suporte a High-DPI
+            function resize() {
+                const rect = heroWrapper.getBoundingClientRect();
+                width = rect.width;
+                height = rect.height;
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+                canvas.width = Math.floor(width * dpr);
+                canvas.height = Math.floor(height * dpr);
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
+                ctx.scale(dpr, dpr);
+            }
+
+            // Classe da Bolha de Sabão com física e renderização realista
+            class Bubble {
+                constructor(x, y, radius, isManual = false) {
+                    this.radius = radius || (Math.random() * 32 + 18);
+                    this.baseRadius = this.radius;
+                    this.x = x !== undefined ? x : Math.random() * width;
+                    this.y = y !== undefined ? y : (height + Math.random() * (isManual ? 0 : height));
+                    
+                    // Velocidade vertical (bolhas sobem suavemente)
+                    this.baseVy = -(Math.random() * 0.45 + 0.45) * (1 - (this.radius / 100) * 0.25);
+                    this.vy = isManual ? (Math.random() * -2 - 1) : this.baseVy;
+                    this.vx = (Math.random() - 0.5) * 0.7;
+                    
+                    // Oscilação / deformação elástica (tensão superficial)
+                    this.wobblePhase = Math.random() * Math.PI * 2;
+                    this.wobbleSpeed = Math.random() * 0.03 + 0.02;
+                    this.swaySpeed = Math.random() * 0.018 + 0.012;
+                    this.swayAmp = Math.random() * 0.7 + 0.35;
+
+                    // Cores furta-cor / iridescência de sabão
+                    const hues = [
+                        { r: 56, g: 189, b: 248 },   // Azul ciano vívido
+                        { r: 96, g: 165, b: 250 },   // Azul clássico
+                        { r: 192, g: 132, b: 252 },  // Lilás / Violeta
+                        { r: 244, g: 114, b: 182 },  // Rosa suave
+                        { r: 45, g: 212, b: 191 }    // Turquesa água
+                    ];
+                    this.accent = hues[Math.floor(Math.random() * hues.length)];
+                    this.alpha = isManual ? 0.15 : (Math.random() * 0.35 + 0.65);
+                    this.maxAlpha = Math.random() * 0.25 + 0.7;
+                    this.popped = false;
+                }
+
+                update(time) {
+                    if (this.popped) return;
+
+                    // Entrada suave (fade-in)
+                    if (this.alpha < this.maxAlpha) {
+                        this.alpha += 0.025;
+                    }
+
+                    // Tensão superficial
+                    this.wobblePhase += this.wobbleSpeed;
+
+                    // Flutuação natural com balanço horizontal
+                    this.x += Math.sin(time * this.swaySpeed + this.wobblePhase) * this.swayAmp + this.vx;
+                    this.y += this.vy;
+
+                    // Amortecimento do impulso extra do mouse
+                    this.vx *= 0.94;
+                    this.vy += (this.baseVy - this.vy) * 0.04;
+                    this.wobbleSpeed += (0.025 - this.wobbleSpeed) * 0.05;
+
+                    // Efeito brisa/repulsão do cursor
+                    if (mouse.active) {
+                        const dx = this.x - mouse.x;
+                        const dy = this.y - mouse.y;
+                        const dist = Math.hypot(dx, dy);
+                        const interactRadius = mouse.radius + this.radius;
+
+                        if (dist < interactRadius && dist > 0) {
+                            const force = (1 - dist / interactRadius);
+                            const angle = Math.atan2(dy, dx);
+                            const push = force * 2.6;
+                            this.vx += Math.cos(angle) * push;
+                            this.vy += Math.sin(angle) * push;
+                            this.wobbleSpeed = 0.16; // Agita a bolha quando tocada
+                        }
+                    }
+
+                    // Envoltório horizontal
+                    if (this.x < -this.radius) this.x = width + this.radius;
+                    if (this.x > width + this.radius) this.x = -this.radius;
+
+                    // Ao ultrapassar o topo da hero, reinicia lá embaixo
+                    if (this.y < -this.radius * 2) {
+                        this.reset();
+                    }
+                }
+
+                reset() {
+                    this.radius = Math.random() < 0.25 
+                        ? (Math.random() * 32 + 42) // Bolha grande (42-74px)
+                        : (Math.random() * 20 + 16); // Bolha pequena/média (16-36px)
+                    this.x = Math.random() * width;
+                    this.y = height + this.radius + Math.random() * 40;
+                    this.baseVy = -(Math.random() * 0.5 + 0.45);
+                    this.vy = this.baseVy;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.alpha = 0.05;
+                    this.maxAlpha = Math.random() * 0.25 + 0.65;
+                    this.popped = false;
+                }
+
+                pop(userInitiated = true) {
+                    if (this.popped) return;
+                    this.popped = true;
+
+                    if (userInitiated) {
+                        const freq = Math.max(300, 850 - this.radius * 7);
+                        playBubblePopSound(freq);
+                    }
+
+                    // Anel de choque do estouro
+                    shockwaves.push({
+                        x: this.x,
+                        y: this.y,
+                        radius: this.radius * 0.8,
+                        maxRadius: this.radius * 1.5,
+                        alpha: 0.85,
+                        accent: this.accent
+                    });
+
+                    // Gotículas de água espirrando
+                    const particleCount = Math.floor(this.radius * 0.35) + 6;
+                    for (let i = 0; i < particleCount; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = Math.random() * 3.8 + 1.2;
+                        particles.push({
+                            x: this.x + Math.cos(angle) * (this.radius * 0.6),
+                            y: this.y + Math.sin(angle) * (this.radius * 0.6),
+                            vx: Math.cos(angle) * speed + this.vx * 0.4,
+                            vy: Math.sin(angle) * speed + this.vy * 0.4,
+                            size: Math.random() * 2.5 + 1.2,
+                            alpha: 0.95,
+                            color: this.accent,
+                            gravity: 0.09
+                        });
+                    }
+
+                    // Renasce suavemente depois de um pequeno intervalo
+                    setTimeout(() => {
+                        this.reset();
+                    }, Math.random() * 800 + 400);
+                }
+
+                draw(ctx) {
+                    if (this.popped || this.alpha <= 0.01) return;
+
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+
+                    // Deformação elástica orgânica (wobble)
+                    const wobbleX = 1 + Math.sin(this.wobblePhase) * 0.07;
+                    const wobbleY = 1 - Math.sin(this.wobblePhase) * 0.07;
+                    ctx.scale(wobbleX, wobbleY);
+
+                    const r = this.radius;
+
+                    // 1. Corpo translúcido volumétrico (degradê radial 3D)
+                    const bodyGrad = ctx.createRadialGradient(
+                        -r * 0.28, -r * 0.28, r * 0.05,
+                        0, 0, r
+                    );
+                    bodyGrad.addColorStop(0, `rgba(255, 255, 255, ${0.12 * this.alpha})`);
+                    bodyGrad.addColorStop(0.5, `rgba(${this.accent.r}, ${this.accent.g}, ${this.accent.b}, ${0.08 * this.alpha})`);
+                    bodyGrad.addColorStop(0.82, `rgba(147, 197, 253, ${0.14 * this.alpha})`);
+                    bodyGrad.addColorStop(0.96, `rgba(${this.accent.r}, ${this.accent.g}, ${this.accent.b}, ${0.28 * this.alpha})`);
+                    bodyGrad.addColorStop(1, `rgba(255, 255, 255, ${0.45 * this.alpha})`);
+
+                    ctx.beginPath();
+                    ctx.arc(0, 0, r, 0, Math.PI * 2);
+                    ctx.fillStyle = bodyGrad;
+                    ctx.fill();
+
+                    // 2. Borda furta-cor iridescente
+                    const strokeGrad = ctx.createLinearGradient(-r, -r, r, r);
+                    strokeGrad.addColorStop(0, `rgba(255, 255, 255, ${0.85 * this.alpha})`);
+                    strokeGrad.addColorStop(0.3, `rgba(56, 189, 248, ${0.65 * this.alpha})`);
+                    strokeGrad.addColorStop(0.65, `rgba(192, 132, 252, ${0.5 * this.alpha})`);
+                    strokeGrad.addColorStop(0.9, `rgba(96, 165, 250, ${0.7 * this.alpha})`);
+                    strokeGrad.addColorStop(1, `rgba(255, 255, 255, ${0.6 * this.alpha})`);
+
+                    ctx.lineWidth = Math.max(1.2, r * 0.04);
+                    ctx.strokeStyle = strokeGrad;
+                    ctx.stroke();
+
+                    // 3. Brilho especular superior esquerdo (reflexo de luz de janela/lâmpada)
+                    ctx.save();
+                    ctx.rotate(-Math.PI / 4);
+                    ctx.beginPath();
+                    ctx.ellipse(0, -r * 0.65, r * 0.32, r * 0.12, 0, 0, Math.PI * 2);
+                    const highGrad = ctx.createRadialGradient(
+                        0, -r * 0.65, 0,
+                        0, -r * 0.65, r * 0.32
+                    );
+                    highGrad.addColorStop(0, `rgba(255, 255, 255, ${0.85 * this.alpha})`);
+                    highGrad.addColorStop(1, `rgba(255, 255, 255, 0)`);
+                    ctx.fillStyle = highGrad;
+                    ctx.fill();
+                    ctx.restore();
+
+                    // 4. Ponto secundário de brilho especular
+                    ctx.beginPath();
+                    ctx.arc(-r * 0.48, -r * 0.42, Math.max(1, r * 0.06), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${0.75 * this.alpha})`;
+                    ctx.fill();
+
+                    // 5. Reflexo de luz suave inferior direito
+                    ctx.save();
+                    ctx.rotate(Math.PI / 4);
+                    ctx.beginPath();
+                    ctx.ellipse(0, r * 0.7, r * 0.22, r * 0.08, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${this.accent.r}, ${this.accent.g}, ${this.accent.b}, ${0.35 * this.alpha})`;
+                    ctx.fill();
+                    ctx.restore();
+
+                    ctx.restore();
+                }
+            }
+
+            // Inicialização da lista de bolhas
+            function initBubbles() {
+                bubbles = [];
+                const isMobile = window.innerWidth < 768;
+                const count = isMobile ? 22 : 40;
+
+                for (let i = 0; i < count; i++) {
+                    const isLarge = i % 5 === 0;
+                    const radius = isLarge 
+                        ? (Math.random() * 30 + 40)
+                        : (Math.random() * 20 + 16);
+                    const b = new Bubble(Math.random() * width, Math.random() * height, radius);
+                    bubbles.push(b);
+                }
+            }
+
+            // Loop de Animação 60fps
+            function animate(time) {
+                if (!isVisible) {
+                    animationFrameId = requestAnimationFrame(animate);
+                    return;
+                }
+
+                const elapsed = time * 0.001;
+                ctx.clearRect(0, 0, width, height);
+
+                // Atualizar e desenhar bolhas
+                for (let i = 0; i < bubbles.length; i++) {
+                    bubbles[i].update(elapsed);
+                    bubbles[i].draw(ctx);
+                }
+
+                // Atualizar ondas de estouro
+                for (let i = shockwaves.length - 1; i >= 0; i--) {
+                    const sw = shockwaves[i];
+                    sw.radius += 2.2;
+                    sw.alpha -= 0.065;
+                    if (sw.alpha <= 0) {
+                        shockwaves.splice(i, 1);
+                        continue;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${sw.accent.r}, ${sw.accent.g}, ${sw.accent.b}, ${sw.alpha * 0.7})`;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+
+                // Atualizar partículas de respingo
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += p.gravity;
+                    p.vx *= 0.98;
+                    p.alpha -= 0.035;
+
+                    if (p.alpha <= 0) {
+                        particles.splice(i, 1);
+                        continue;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${p.alpha})`;
+                    ctx.fill();
+
+                    // Brilho na micro-gotícula
+                    ctx.beginPath();
+                    ctx.arc(p.x - p.size * 0.3, p.y - p.size * 0.3, p.size * 0.4, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * 0.8})`;
+                    ctx.fill();
+                }
+
+                animationFrameId = requestAnimationFrame(animate);
+            }
+
+            // Tratamento de Interatividade do Mouse / Toque
+            function updatePointerPos(e) {
+                const rect = heroWrapper.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                if (clientX !== undefined && clientY !== undefined) {
+                    mouse.x = clientX - rect.left;
+                    mouse.y = clientY - rect.top;
+                    mouse.active = true;
+                }
+            }
+
+            heroWrapper.addEventListener('pointermove', updatePointerPos, { passive: true });
+            heroWrapper.addEventListener('pointerenter', updatePointerPos, { passive: true });
+
+            heroWrapper.addEventListener('pointerleave', () => {
+                mouse.active = false;
+                mouse.x = -9999;
+                mouse.y = -9999;
+            });
+
+            // Clique ou toque: Estourar bolhas ou criar novas!
+            heroWrapper.addEventListener('pointerdown', (e) => {
+                // Não intercepta cliques em botões, links, inputs ou menus
+                if (e.target.closest('a, button, input, textarea, select, label, [role="button"]')) {
+                    return;
+                }
+
+                const rect = heroWrapper.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                if (clientX === undefined) return;
+
+                const clickX = clientX - rect.left;
+                const clickY = clientY - rect.top;
+
+                // Tenta estourar a bolha mais próxima do clique
+                let poppedAny = false;
+                for (let i = bubbles.length - 1; i >= 0; i--) {
+                    const b = bubbles[i];
+                    if (!b.popped) {
+                        const dist = Math.hypot(b.x - clickX, b.y - clickY);
+                        if (dist <= b.radius + 15) {
+                            b.pop(true);
+                            poppedAny = true;
+                            break;
+                        }
+                    }
+                }
+
+                // Se clicou no fundo vazio, gera 2-3 bolhas divertidas
+                if (!poppedAny) {
+                    playBubblePopSound(800);
+                    const spawnCount = Math.floor(Math.random() * 2) + 2;
+                    for (let k = 0; k < spawnCount; k++) {
+                        const newR = Math.random() * 18 + 16;
+                        const newB = new Bubble(
+                            clickX + (Math.random() - 0.5) * 30,
+                            clickY + (Math.random() - 0.5) * 20,
+                            newR,
+                            true
+                        );
+                        bubbles.push(newB);
+                    }
+                    if (bubbles.length > 55) {
+                        bubbles.splice(0, bubbles.length - 55);
+                    }
+                }
+            });
+
+            // Pausa a animação quando a hero não estiver visível (economiza CPU/bateria)
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        isVisible = entry.isIntersecting;
+                    });
+                }, { threshold: 0.05 });
+                observer.observe(heroWrapper);
+            }
+
+            // Redimensionamento inteligente
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    resize();
+                }, 150);
+            });
+
+            // Inicia
+            resize();
+            initBubbles();
+            animationFrameId = requestAnimationFrame(animate);
+        })();
+    </script>
+</body>
+</html>
