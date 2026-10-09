@@ -32,6 +32,12 @@
         }
     </script>
     <style>
+        /* Escala tipográfica estruturada (passos de proporção >= 1.25x) */
+        h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.25rem; font-weight: 800; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; }
+        h4 { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+
         @keyframes gentleFloat {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-7px); }
@@ -136,10 +142,7 @@
                     <!-- Text Content (Ocupa a faixa esquerda para nunca sobrepor o cesto e a máquina à direita) -->
                     <div class="w-full lg:max-w-md xl:max-w-lg text-center lg:text-left">
                         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/15 backdrop-blur-md text-white text-[11px] sm:text-xs font-semibold uppercase tracking-wider mb-4 sm:mb-5 border border-white/30 shadow-lg shadow-black/15">
-                            <span class="flex h-2 w-2 relative">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                            </span>
+                            <span class="w-2 h-2 rounded-full bg-white"></span>
                             <span>Lavanderia &amp; Lavagem Especializada</span>
                         </div>
                         <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-extrabold text-white leading-[1.14] sm:leading-[1.12] mb-4 sm:mb-5 tracking-tight drop-shadow-md">
@@ -149,30 +152,22 @@
                             Serviço profissional de lavanderia e lavagem a seco com cuidado especial, higiene impecável e entrega pontual.
                         </p>
                         
-                        <!-- 4 Feature Cards (Detalhes Brancos & Vidro Fosco) -->
+                        <!-- 4 Feature Badges (Estrutura Plana e Direta sem Caixas Aninhadas) -->
                         <div class="grid grid-cols-2 gap-2 sm:gap-2.5 mb-6 sm:mb-7 text-left max-w-md mx-auto lg:mx-0">
-                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-md shadow-black/15 hover:-translate-y-0.5 transition-all group">
-                                <div class="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center mr-2 text-white group-hover:scale-110 group-hover:bg-white group-hover:text-slate-900 transition-all flex-shrink-0">
-                                    <i class="fas fa-truck text-xs"></i>
-                                </div>
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-sm transition-all">
+                                <i class="fas fa-truck text-sm text-white mr-2 flex-shrink-0"></i>
                                 <span class="truncate">Coleta &amp; Entrega</span>
                             </div>
-                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-md shadow-black/15 hover:-translate-y-0.5 transition-all group">
-                                <div class="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center mr-2 text-white group-hover:scale-110 group-hover:bg-white group-hover:text-slate-900 transition-all flex-shrink-0">
-                                    <i class="fas fa-tint text-xs"></i>
-                                </div>
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-sm transition-all">
+                                <i class="fas fa-tint text-sm text-white mr-2 flex-shrink-0"></i>
                                 <span class="truncate">100% Higiênica</span>
                             </div>
-                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-md shadow-black/15 hover:-translate-y-0.5 transition-all group">
-                                <div class="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center mr-2 text-white group-hover:scale-110 group-hover:bg-white group-hover:text-slate-900 transition-all flex-shrink-0">
-                                    <i class="fas fa-stopwatch text-xs"></i>
-                                </div>
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-sm transition-all">
+                                <i class="fas fa-stopwatch text-sm text-white mr-2 flex-shrink-0"></i>
                                 <span class="truncate">Expressa 24h</span>
                             </div>
-                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-md shadow-black/15 hover:-translate-y-0.5 transition-all group">
-                                <div class="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center mr-2 text-white group-hover:scale-110 group-hover:bg-white group-hover:text-slate-900 transition-all flex-shrink-0">
-                                    <i class="fas fa-tags text-xs"></i>
-                                </div>
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 shadow-sm transition-all">
+                                <i class="fas fa-tags text-sm text-white mr-2 flex-shrink-0"></i>
                                 <span class="truncate">Preço Justo</span>
                             </div>
                         </div>
@@ -201,7 +196,7 @@
                                 </div>
                             </div>
                             <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md py-1.5 px-3 rounded-xl border border-white/20 shadow-md">
-                                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
                                 <span class="text-xs font-semibold text-white">Pronto em até 24h</span>
                             </div>
                         </div>
@@ -221,16 +216,15 @@
     <section id="servicos" class="py-20 bg-white">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-12">
-                <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Nossos Serviços</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-4">Lavanderia & Lavagem a Seco</h2>
-                <div class="w-24 h-1 bg-primary mx-auto rounded mt-6"></div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Lavanderia &amp; Lavagem a Seco</h2>
+                <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-xl mx-auto">Cuidado completo, processos especializados e acabamento impecável para cada tipo de tecido.</p>
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-6">
                 <!-- Card 1 -->
                 <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
                     <div class="h-28 sm:h-40 overflow-hidden relative">
-                        <img src="imagens e vídeos/servico-lavar-dobrar.jpg" alt="Lavar e Dobrar" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img src="imagens e vídeos/servico-lavar-dobrar.jpg" alt="Lavar e Dobrar" class="w-full h-full object-cover">
                         <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
                             <i class="fas fa-tshirt"></i>
                         </div>
@@ -245,7 +239,7 @@
                 <!-- Card 2 -->
                 <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
                     <div class="h-28 sm:h-40 overflow-hidden relative">
-                        <img src="imagens e vídeos/servico-lavagem-seco.jpg" alt="Lavagem a Seco" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img src="imagens e vídeos/servico-lavagem-seco.jpg" alt="Lavagem a Seco" class="w-full h-full object-cover">
                         <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
                             <i class="fas fa-user-tie"></i>
                         </div>
@@ -260,7 +254,7 @@
                 <!-- Card 3 -->
                 <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
                     <div class="h-28 sm:h-40 overflow-hidden relative">
-                        <img src="imagens e vídeos/servico-passadoria.jpg" alt="Passadoria" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img src="imagens e vídeos/servico-passadoria.jpg" alt="Passadoria" class="w-full h-full object-cover">
                         <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
                             <i class="fas fa-fire"></i>
                         </div>
@@ -275,7 +269,7 @@
                 <!-- Card 4 -->
                 <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
                     <div class="h-28 sm:h-40 overflow-hidden relative">
-                        <img src="imagens e vídeos/servico-calcados.jpg" alt="Limpeza de Calçados" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img src="imagens e vídeos/servico-calcados.jpg" alt="Limpeza de Calçados" class="w-full h-full object-cover">
                         <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
                             <i class="fas fa-shoe-prints"></i>
                         </div>
@@ -290,7 +284,7 @@
                 <!-- Card 5 -->
                 <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
                     <div class="h-28 sm:h-40 overflow-hidden relative">
-                        <img src="imagens e vídeos/servico-cama-banho.jpg" alt="Cama, Mesa e Banho" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img src="imagens e vídeos/servico-cama-banho.jpg" alt="Cama, Mesa e Banho" class="w-full h-full object-cover">
                         <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
                             <i class="fas fa-bed"></i>
                         </div>
@@ -305,7 +299,7 @@
                 <!-- Card 6 -->
                 <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden cursor-pointer flex flex-col">
                     <div class="h-28 sm:h-40 overflow-hidden relative">
-                        <img src="imagens e vídeos/servico-cuidados-especiais.jpg" alt="Cuidados Especiais" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img src="imagens e vídeos/servico-cuidados-especiais.jpg" alt="Cuidados Especiais" class="w-full h-full object-cover">
                         <div class="absolute -bottom-4 left-3 sm:-bottom-5 sm:left-5 bg-white w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-primary shadow-lg border border-gray-100 z-10 text-sm sm:text-xl">
                             <i class="fas fa-gem"></i>
                         </div>
@@ -327,10 +321,8 @@
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
                 <!-- Left Title Content -->
                 <div class="lg:w-1/4 flex flex-col justify-start">
-                    <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full w-fit">Nossos Preços</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4 sm:mb-6 leading-tight">Tabela<br class="hidden sm:inline"> de Preços</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">Tabela<br class="hidden sm:inline"> de Preços</h2>
                     <p class="text-sm text-gray-500 mb-6 lg:mb-10">Transparência total e os melhores valores para o seu dia a dia.</p>
-                    <div class="w-16 h-1 bg-primary mb-8 rounded hidden lg:block"></div>
                     
                     <div class="relative hidden lg:block mt-auto pb-4">
                         <img src="imagens e vídeos/precos-toalhas.jpg" alt="Toalhas Limpas" class="rounded-xl shadow-lg mix-blend-multiply opacity-90 h-64 object-cover w-full">
@@ -514,9 +506,8 @@
     <section id="como-funciona" class="py-20 bg-white">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-16">
-                <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Como Funciona</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-4">4 Passos Simples</h2>
-                <div class="w-24 h-1 bg-primary mx-auto rounded mt-6"></div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Como Funciona Nosso Serviço</h2>
+                <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-xl mx-auto">Praticidade em 4 passos simples, do agendamento até a entrega na sua porta.</p>
             </div>
             
             <div class="flex flex-col md:flex-row justify-between items-start relative max-w-5xl mx-auto">
@@ -576,9 +567,9 @@
                     <p class="text-blue-100 text-xs sm:text-sm mb-5">Aproveite nossa qualidade com um cupom especial de boas-vindas.</p>
                     <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center md:justify-start">
                         <span class="text-white/90 text-xs sm:text-sm font-medium">Use o Código:</span>
-                        <div class="bg-white/20 border-2 border-white border-dashed text-white px-5 py-2 rounded-xl font-black tracking-widest uppercase text-sm sm:text-base">
+                        <code class="font-mono bg-white text-slate-900 font-black px-4 py-2 rounded-lg tracking-widest text-sm sm:text-base select-all shadow-sm">
                             BEMVINDO20
-                        </div>
+                        </code>
                     </div>
                 </div>
                 <!-- Image -->
@@ -597,35 +588,35 @@
                 <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
                     <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="fas fa-shield-alt"></i></div>
                     <div>
-                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">100% Higiênico</h4>
+                        <h3 class="font-bold text-gray-900 text-xs sm:text-sm">100% Higiênico</h3>
                         <p class="text-[11px] sm:text-xs text-gray-500">Elimina germes</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
                     <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="far fa-clock"></i></div>
                     <div>
-                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">No Prazo</h4>
+                        <h3 class="font-bold text-gray-900 text-xs sm:text-sm">No Prazo</h3>
                         <p class="text-[11px] sm:text-xs text-gray-500">Na hora marcada</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
                     <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="fas fa-lock"></i></div>
                     <div>
-                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Seguro &amp; Confiável</h4>
+                        <h3 class="font-bold text-gray-900 text-xs sm:text-sm">Seguro &amp; Confiável</h3>
                         <p class="text-[11px] sm:text-xs text-gray-500">Em boas mãos</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl">
                     <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="fas fa-leaf"></i></div>
                     <div>
-                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Ecológico</h4>
+                        <h3 class="font-bold text-gray-900 text-xs sm:text-sm">Ecológico</h3>
                         <p class="text-[11px] sm:text-xs text-gray-500">Sustentável</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 bg-gray-50/80 p-3 sm:p-0 sm:bg-transparent rounded-xl col-span-2 sm:col-span-1">
                     <div class="text-primary text-xl sm:text-2xl flex-shrink-0 w-8 sm:w-10 text-center"><i class="far fa-thumbs-up"></i></div>
                     <div>
-                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Satisfação</h4>
+                        <h3 class="font-bold text-gray-900 text-xs sm:text-sm">Satisfação</h3>
                         <p class="text-[11px] sm:text-xs text-gray-500">100% garantida</p>
                     </div>
                 </div>
@@ -637,9 +628,8 @@
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-16">
-                <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-100 px-3 py-1 rounded-full">O que nossos clientes dizem</span>
-                <h2 class="text-3xl font-extrabold text-gray-900 mt-4">Avaliações</h2>
-                <div class="w-16 h-1 bg-primary mx-auto rounded mt-4"></div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">O que Nossos Clientes Dizem</h2>
+                <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-xl mx-auto">Experiências reais de quem confia suas roupas e tecidos ao nosso cuidado.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -652,7 +642,7 @@
                     <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Roberto Alves" class="w-12 h-12 rounded-full object-cover">
                         <div>
-                            <h4 class="font-bold text-gray-900 text-sm">Roberto Alves</h4>
+                            <h3 class="font-bold text-gray-900 text-sm">Roberto Alves</h3>
                             <span class="text-xs text-gray-500">São Paulo, SP</span>
                         </div>
                     </div>
@@ -667,7 +657,7 @@
                     <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
                         <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mariana Costa" class="w-12 h-12 rounded-full object-cover">
                         <div>
-                            <h4 class="font-bold text-gray-900 text-sm">Mariana Costa</h4>
+                            <h3 class="font-bold text-gray-900 text-sm">Mariana Costa</h3>
                             <span class="text-xs text-gray-500">Rio de Janeiro, RJ</span>
                         </div>
                     </div>
@@ -682,7 +672,7 @@
                     <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
                         <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Carlos Eduardo" class="w-12 h-12 rounded-full object-cover">
                         <div>
-                            <h4 class="font-bold text-gray-900 text-sm">Carlos Eduardo</h4>
+                            <h3 class="font-bold text-gray-900 text-sm">Carlos Eduardo</h3>
                             <span class="text-xs text-gray-500">Curitiba, PR</span>
                         </div>
                     </div>
@@ -698,7 +688,7 @@
                 <!-- Image with modern badge -->
                 <div class="lg:w-1/2 relative w-full">
                     <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                        <img src="imagens e vídeos/sobre-nos.jpg" alt="Instalações da Lavanderia" class="w-full h-[280px] sm:h-[380px] md:h-[440px] object-cover hover:scale-105 transition duration-700">
+                        <img src="imagens e vídeos/sobre-nos.jpg" alt="Instalações da Lavanderia" class="w-full h-[280px] sm:h-[380px] md:h-[440px] object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
                     </div>
                     <!-- Experience badge -->
@@ -713,8 +703,7 @@
 
                 <!-- Text Content -->
                 <div class="lg:w-1/2 mt-6 lg:mt-0">
-                    <span class="text-primary font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Sobre Nós</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3 mb-5 leading-tight">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-5 leading-tight tracking-tight">
                         Cuidado Profissional com Cada Fibra da Sua Roupa
                     </h2>
                     <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-6">
@@ -728,7 +717,7 @@
                                 <i class="fas fa-check text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 text-sm">Higienização Profunda &amp; Desinfecção</h4>
+                                <h3 class="font-bold text-gray-900 text-sm">Higienização Profunda &amp; Desinfecção</h3>
                                 <p class="text-xs text-gray-500">Elimina 99.9% de germes, bactérias e odores desagradáveis.</p>
                             </div>
                         </div>
@@ -737,7 +726,7 @@
                                 <i class="fas fa-check text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 text-sm">Passadoria a Vapor e Cabide</h4>
+                                <h3 class="font-bold text-gray-900 text-sm">Passadoria a Vapor e Cabide</h3>
                                 <p class="text-xs text-gray-500">Suas roupas voltam prontas para vestir e guardar no armário.</p>
                             </div>
                         </div>
@@ -746,7 +735,7 @@
                                 <i class="fas fa-check text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 text-sm">Coleta e Entrega Pontuais</h4>
+                                <h3 class="font-bold text-gray-900 text-sm">Coleta e Entrega Pontuais</h3>
                                 <p class="text-xs text-gray-500">Retiramos e entregamos na sua porta com horário agendado.</p>
                             </div>
                         </div>
